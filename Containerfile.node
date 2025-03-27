@@ -1,0 +1,10 @@
+from alpine:edge
+
+env RAD_HOME="/opt/radicle"
+env PATH="$PATH:/opt/radicle"
+run apk add openssh curl git xz
+run curl -s https://radicle.xyz/install | sh
+run install -m755 /opt/radicle/bin/* /usr/local/bin
+run rm -rf /opt/radicle/bin
+
+cmd [ "rad", "node", "start", "--foreground" ]

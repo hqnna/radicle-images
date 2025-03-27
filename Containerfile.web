@@ -1,0 +1,16 @@
+from node:alpine as builder
+
+run apk add bash curl git
+run git clone https://seed.radicle.xyz/z4V1sjrXqjvFdnCUbxPFqd5p4DtH5.git source
+
+workdir source
+copy configs/config.json config/local.json
+
+run npm install
+run npm run build
+
+from caddy:alpine
+expose 80
+
+copy --from=builder /source/build /var/www/web
+copy configs/Caddyfile /etc/caddy/Caddyfile
