@@ -1,4 +1,5 @@
 from alpine:edge
+expose 8776
 
 env RAD_HOME="/opt/radicle"
 env PATH="$PATH:/opt/radicle"
